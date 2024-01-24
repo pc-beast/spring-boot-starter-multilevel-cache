@@ -4,9 +4,10 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
-group = 'com.example'
-version = '0.1.0-SNAPSHOT'
+group = 'me.pcbeast'
+version = '0.1.0'
 sourceCompatibility = '8'
+description = 'Spring Boot Starter Multilevel Caching'
 
 repositories {
     mavenCentral()

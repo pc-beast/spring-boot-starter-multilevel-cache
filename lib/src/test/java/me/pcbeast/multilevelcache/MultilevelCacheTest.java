@@ -1,9 +1,7 @@
-package com.example.multilevelcache;
+package me.pcbeast.multilevelcache;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.cache.Cache;
@@ -11,7 +9,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.support.SimpleValueWrapper;
 
 import java.util.Arrays;
-import java.util.concurrent.Callable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -29,9 +26,6 @@ public class MultilevelCacheTest {
     private Cache firstLevelCache;
     @Mock
     private Cache secondLevelCache;
-
-    @Captor
-    private ArgumentCaptor<Object> valueCaptor;
 
     @BeforeEach
     public void setUp() {

@@ -1,4 +1,4 @@
-package com.example.multilevelcache;
+package me.pcbeast.multilevelcache;
 
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
