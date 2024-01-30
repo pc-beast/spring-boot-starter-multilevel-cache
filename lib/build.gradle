@@ -2,9 +2,11 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.5.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'signing'
+    id 'maven-publish'
 }
 
-group = 'me.pcbeast'
+group = 'io.github.pc-beast'
 version = '0.1.0'
 sourceCompatibility = '8'
 description = 'Spring Boot Starter Multilevel Caching'
@@ -14,11 +16,63 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter:2.6.4'
+    implementation 'org.springframework.boot:spring-boot-starter-cache:2.5.4'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.4'
 }
+
+signing {
+    useInMemoryPgpKeys(findProperty("signing.keyId"), findProperty("signing.password"))
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            pom {
+                name = 'MultilevelCacheManager'
+                description = 'A multilevel cache implementation for Spring Boot'
+                url = 'https://github.com/pc-beast/spring-boot-starter-multilevel-cache'
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'pc-beast'
+                        name = 'Pavnesh Chaturvedi'
+                        email = 'impavnesh@gmail.com'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:github.com/pc-beast/spring-boot-starter-multilevel-cache.git'
+                    developerConnection = 'scm:git:ssh://github.com:pc-beast/spring-boot-starter-multilevel-cache.git'
+                    url = 'https://github.com/pc-beast/spring-boot-starter-multilevel-cache'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'OSSRH'
+            url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+
+            credentials {
+                username = findProperty("ossrhUsername") ?: System.getenv("OSSRH_USERNAME")
+                password = findProperty("ossrhPassword") ?: System.getenv("OSSRH_PASSWORD")
+            }
+        }
+    }
+}
+
 
 test {
     useJUnitPlatform()
